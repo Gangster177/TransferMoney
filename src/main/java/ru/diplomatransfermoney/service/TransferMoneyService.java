@@ -28,34 +28,10 @@ public class TransferMoneyService {
     }
 
     public TransferAndConfirmResponse transfer(TransferRequest request) {
-        final Card cardFrom = repository.getCard(request.getCardFromNumber());
-        final Card cardTo = repository.getCard(request.getCardToNumber());
 
-        if (cardFrom == cardTo) {
-            log.error("the card numbers match");
-            throw new ErrorInputDataException("the card numbers match");
-        }
-
-        final String cardFromValidTill = cardFrom.getValidTill();
-        final String cardFromCVV = cardFrom.getCvv();
-        final String transferRequestCardFromValidTill = request.getCardFromValidTill();
-        final String transferRequestCardFromCVV = request.getCardFromCVV();
-
-        if (!cardFromValidTill.equals(transferRequestCardFromValidTill) && cardFromCVV.equals(transferRequestCardFromCVV)) {
-            log.error("incorrect card data entered: valid till");
-            throw new ErrorInputDataException("incorrect card data entered: valid till");
-        } else if (cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
-            log.error("incorrect card data entered: cvv");
-            throw new ErrorInputDataException("incorrect card data entered: cvv");
-        } else if (!cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
-            log.error("incorrect card data entered: valid till and cvv");
-            throw new ErrorInputDataException("incorrect card data entered: valid till and cvv");
-        }
-
-        if (cardFrom.getBalanceCard().getValue() < request.getAmount().getValue()) {
-            log.error("card from invalid data: not enough money");
-            throw new ErrorInputDataException("card from invalid data: not enough money");
-        }
+        cardNumberVerification(request);
+        cardDateVerification(request);
+        transferAmountVerification(request);
 
         final String transferId = Integer.toString(repository.incrementAndGetOperationId());
         repository.putTransfer(transferId, request);
@@ -87,6 +63,42 @@ public class TransferMoneyService {
                 operationId, transferRequest.getCardFromNumber(), transferRequest.getCardToNumber(), transferValue, commission));
 
         return new TransferAndConfirmResponse(operationId);
+    }
+
+    private void cardNumberVerification(TransferRequest request) {
+        final Card cardFrom = repository.getCard(request.getCardFromNumber());
+        final Card cardTo = repository.getCard(request.getCardToNumber());
+        if (cardFrom == cardTo) {
+            log.error("the card numbers match");
+            throw new ErrorInputDataException("the card numbers match");
+        }
+    }
+
+    private void transferAmountVerification(TransferRequest request) {
+        final Card cardFrom = repository.getCard(request.getCardFromNumber());
+        if (cardFrom.getBalanceCard().getValue() < request.getAmount().getValue()) {
+            log.error("card from invalid data: not enough money");
+            throw new ErrorInputDataException("card from invalid data: not enough money");
+        }
+    }
+
+    private void cardDateVerification(TransferRequest request) {
+        final Card cardFrom = repository.getCard(request.getCardFromNumber());
+        final String cardFromValidTill = cardFrom.getValidTill();
+        final String cardFromCVV = cardFrom.getCvv();
+        final String transferRequestCardFromValidTill = request.getCardFromValidTill();
+        final String transferRequestCardFromCVV = request.getCardFromCVV();
+
+        if (!cardFromValidTill.equals(transferRequestCardFromValidTill) && cardFromCVV.equals(transferRequestCardFromCVV)) {
+            log.error("incorrect card data entered: valid till");
+            throw new ErrorInputDataException("incorrect card data entered: valid till");
+        } else if (cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
+            log.error("incorrect card data entered: cvv");
+            throw new ErrorInputDataException("incorrect card data entered: cvv");
+        } else if (!cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
+            log.error("incorrect card data entered: valid till and cvv");
+            throw new ErrorInputDataException("incorrect card data entered: valid till and cvv");
+        }
     }
 
 }
