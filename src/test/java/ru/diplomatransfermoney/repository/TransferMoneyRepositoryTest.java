@@ -64,9 +64,8 @@ public class TransferMoneyRepositoryTest {
     @Test
     @DisplayName("Get -> ID.")
     void incrementAndGetOperationIdTest() {
-        int operationIdExpected = ID;
         int operationIdActual = transferMoneyRepository.incrementAndGetOperationId();
-        assertEquals(operationIdExpected, operationIdActual);
+        assertEquals(ID, operationIdActual);
     }
 
     @Test

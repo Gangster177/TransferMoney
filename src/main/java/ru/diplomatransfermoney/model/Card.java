@@ -10,7 +10,6 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor
 public class Card {
-
     @NotBlank(message = "number can't be null")
     @Size(min = 16, max = 16)
     @Pattern(regexp = "(?<!\\d)\\d{16}(?!\\d)")

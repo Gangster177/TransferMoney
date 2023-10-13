@@ -196,3 +196,6 @@ Caused by: java.lang.NoSuchMethodException: ru.diplomatransfermoney.service.Tran
 2023-10-13T13:55:42.391+03:00  INFO 9168 --- [main] r.d.service.TransferMoneyServiceTest     : No active profile set, falling back to 1 default profile: "default"
 2023-10-13T13:55:46.164+03:00  INFO 9168 --- [main] r.d.service.TransferMoneyServiceTest     : Started TransferMoneyServiceTest in 4.661 seconds (process running for 7.423)
 2023-10-13T13:55:49.218+03:00 ERROR 9168 --- [main] r.d.service.TransferMoneyService         : incorrect card data entered: valid till
+2023-10-13T14:18:28.422+03:00  INFO 20732 --- [main] r.d.r.TransferMoneyRepositoryTest        : Starting TransferMoneyRepositoryTest using Java 17.0.8 with PID 20732 (started by nea26 in C:\Users\nea26\IdeaProjects\diplomaTransferMoney)
+2023-10-13T14:18:28.425+03:00  INFO 20732 --- [main] r.d.r.TransferMoneyRepositoryTest        : The following 1 profile is active: "test"
+2023-10-13T14:18:32.707+03:00  INFO 20732 --- [main] r.d.r.TransferMoneyRepositoryTest        : Started TransferMoneyRepositoryTest in 5.301 seconds (process running for 8.382)

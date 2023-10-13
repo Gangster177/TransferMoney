@@ -1,6 +1,5 @@
 package ru.diplomatransfermoney.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -8,10 +7,8 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.util.ReflectionTestUtils;
 import ru.diplomatransfermoney.model.Amount;
 import ru.diplomatransfermoney.model.Card;
-import ru.diplomatransfermoney.model.reqest.ConfirmRequest;
 import ru.diplomatransfermoney.model.reqest.TransferRequest;
 import ru.diplomatransfermoney.model.response.TransferAndConfirmResponse;
 import ru.diplomatransfermoney.repository.TransferMoneyRepository;
@@ -24,18 +21,18 @@ import static org.mockito.Mockito.*;
 class TransferMoneyServiceTest {
 
     public static final TransferRequest TRANSFER_REQUEST = new TransferRequest(
-            "1111222233334444",
-            "01/29",
-            "345",
-            "5555666677778888",
+            "1111111111111111",
+            "10/24",
+            "123",
+            "2222222222222222",
             new Amount(15000, "RUR"));
     public static final String OPERATION_ID = "1";
     public static final Card TEST_CARD_FROM = new Card(
-            "1111222233334444",
-            "01/25",
-            "345",
+            "1111111111111111",
+            "10/24",
+            "123",
             new Amount(1000, "RUR"));
-    public static final String CARD_NUMBER_FROM = "1111222233334444";
+    public static final String CARD_NUMBER_FROM = "1111111111111111";
     @Mock
     private TransferMoneyRepository transferRepository;
     @InjectMocks

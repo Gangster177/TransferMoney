@@ -95,7 +95,7 @@ public class TransferMoneyService {
         } else if (cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
             log.error("incorrect card data entered: cvv");
             throw new ErrorInputDataException("incorrect card data entered: cvv");
-        } else if (!cardFromValidTill.equals(transferRequestCardFromValidTill) && !cardFromCVV.equals(transferRequestCardFromCVV)) {
+        } else if (!cardFromValidTill.equals(transferRequestCardFromValidTill)) {
             log.error("incorrect card data entered: valid till and cvv");
             throw new ErrorInputDataException("incorrect card data entered: valid till and cvv");
         }
