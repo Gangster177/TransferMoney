@@ -47,6 +47,10 @@ public class TransferMoneyService {
             log.error("confirm operation invalid data: code");
             throw new ErrorInputDataException("confirm operation invalid data: code");
         }
+        changeBalance(operationId);
+        return new TransferAndConfirmResponse(operationId);
+    }
+    public void changeBalance(String operationId){
         final TransferRequest transferRequest = repository.getTransfer(operationId);
         final Card cardFrom = repository.getCard(transferRequest.getCardFromNumber());
         final Card cardTo = repository.getCard(transferRequest.getCardToNumber());
@@ -62,7 +66,6 @@ public class TransferMoneyService {
         log.info(String.format("Success transfer. Transfer operation id %s. Card from %s. Card to %s. Amount %d. Commission %d",
                 operationId, transferRequest.getCardFromNumber(), transferRequest.getCardToNumber(), transferValue, commission));
 
-        return new TransferAndConfirmResponse(operationId);
     }
 
     private void cardNumberVerification(TransferRequest request) {

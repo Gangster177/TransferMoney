@@ -50,7 +50,7 @@ public class TransferMoneyRepositoryTest {
     }
 
     @Test
-    @DisplayName("Put&Get -> TransferRequest.")
+    @DisplayName("Put&Get -> TransferRequest:")
     void transferTests() {
         String operationId = OPERATION_ID;
         TransferRequest request = TRANSFER_REQUEST;
@@ -62,14 +62,14 @@ public class TransferMoneyRepositoryTest {
     }
 
     @Test
-    @DisplayName("Get -> ID.")
+    @DisplayName("Get -> ID:")
     void incrementAndGetOperationIdTest() {
         int operationIdActual = transferMoneyRepository.incrementAndGetOperationId();
         assertEquals(ID, operationIdActual);
     }
 
     @Test
-    @DisplayName("Save&Get -> confirmation code.")
+    @DisplayName("Save&Get -> confirmation code:")
     void codeTests() {
 
         String operationId = OPERATION_ID;
