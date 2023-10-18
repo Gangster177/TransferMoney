@@ -50,7 +50,8 @@ public class TransferMoneyService {
         changeBalance(operationId);
         return new TransferAndConfirmResponse(operationId);
     }
-    public void changeBalance(String operationId){
+
+    public void changeBalance(String operationId) {
         final TransferRequest transferRequest = repository.getTransfer(operationId);
         final Card cardFrom = repository.getCard(transferRequest.getCardFromNumber());
         final Card cardTo = repository.getCard(transferRequest.getCardToNumber());
